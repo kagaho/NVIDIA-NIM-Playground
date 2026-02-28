@@ -1,4 +1,10 @@
 ## for gpt-oss-20b  
+- OS: Fedora Linux 43 (Workstation Edition) x86_64
+- Kernel: Linux 6.18.9-200.fc43.x86_64
+- GPU 1: NVIDIA GeForce RTX 4090
+
+
+
 - https://build.nvidia.com/openai/gpt-oss-20b/deploy
   
 ```
