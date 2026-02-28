@@ -1,7 +1,7 @@
 ## for gpt-oss-20b  
 - https://build.nvidia.com/openai/gpt-oss-20b/deploy
   
-```bash
+```
 podman run -d   --name nim-gpt-oss-20b   --restart=unless-stopped   --device nvidia.com/gpu=all   --shm-size=16GB   -e NGC_API_KEY   -e NIM_MODEL_PROFILE="66fb3113efd2aae1b0a3bfa2a375de5fe1cc1b557abac4eb271730482a26ae8e"   -e VLLM_MAX_MODEL_LEN=8192   -e VLLM_MAX_NUM_SEQS=4   -e VLLM_GPU_MEMORY_UTILIZATION=0.80   -e PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True   -v "$LOCAL_NIM_CACHE:/opt/nim/.cache:Z,U"   -p 8000:8000   nvcr.io/nim/openai/gpt-oss-20b:latest
 ```
   
