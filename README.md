@@ -148,13 +148,13 @@ content-type: application/json
   
 ### Prompt and Answer token , pending requests:
 ```
-󰣛 soundwave :   …/󰈙 /NCP-AAI/NIM   master 🗑️ 📝 🛤️    17:27  ❯ curl -s http://0.0.0.0:8000/v1/metrics   | grep -E '^vllm:(prompt_tokens_total|generation_tokens_total)\{'   | head
+❯ curl -s http://0.0.0.0:8000/v1/metrics   | grep -E '^vllm:(prompt_tokens_total|generation_tokens_total)\{'   | head
 vllm:prompt_tokens_total{engine="0",model_name="openai/gpt-oss-20b"} 1939.0
 vllm:generation_tokens_total{engine="0",model_name="openai/gpt-oss-20b"} 1460.0
 ```
 
 ```
-󰣛 soundwave :   …/󰈙 /NCP-AAI/NIM   master 🗑️ 📝 🛤️    17:27  ❯ curl -s http://0.0.0.0:8000/v1/metrics \
+❯ curl -s http://0.0.0.0:8000/v1/metrics \
   | awk -F' ' '/^vllm:num_requests_waiting\{/{print $2}' \
   | head -n1
 0.0
