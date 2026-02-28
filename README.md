@@ -3,8 +3,8 @@
 - Kernel: Linux 6.18.9-200.fc43.x86_64
 - GPU 1: NVIDIA GeForce RTX 4090
 - Profiling list and NGC info in [NIM_NGC_profiles.md](https://github.com/kagaho/NVIDIA-NIM-Playground/blob/main/NIM_NGC_profiles.md "NIM_NGC_profiles.md")
-- [Issues Studies](https://github.com/kagaho/NVIDIA-NIM-Playground/blob/main/issues_study.md)
-
+- [Issues Studies](https://github.com/kagaho/NVIDIA-NIM-Playground/blob/main/issues_study.md)  
+  
 
 
 	  
