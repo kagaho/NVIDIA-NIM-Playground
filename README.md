@@ -1,8 +1,11 @@
-# for gpt-oss-20b
-# https://build.nvidia.com/openai/gpt-oss-20b/deploy
-
+## for gpt-oss-20b  
+- https://build.nvidia.com/openai/gpt-oss-20b/deploy
+  
+```bash
 podman run -d   --name nim-gpt-oss-20b   --restart=unless-stopped   --device nvidia.com/gpu=all   --shm-size=16GB   -e NGC_API_KEY   -e NIM_MODEL_PROFILE="66fb3113efd2aae1b0a3bfa2a375de5fe1cc1b557abac4eb271730482a26ae8e"   -e VLLM_MAX_MODEL_LEN=8192   -e VLLM_MAX_NUM_SEQS=4   -e VLLM_GPU_MEMORY_UTILIZATION=0.80   -e PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True   -v "$LOCAL_NIM_CACHE:/opt/nim/.cache:Z,U"   -p 8000:8000   nvcr.io/nim/openai/gpt-oss-20b:latest
-
+```
+  
+```bash
 curl -X 'POST' \
 'http://0.0.0.0:8000/v1/chat/completions' \
 -H 'accept: application/json' \
@@ -12,17 +15,21 @@ curl -X 'POST' \
     "messages": [{"role":"user", "content":"Which number is larger, 9.11 or 9.8?"}],
     "max_tokens": 64
 }' | jq
-
-# Same as above, but filtering the fields you want with "jq" tool:
-
+```
+  
+- Same as above, but filtering the fields you want with "jq" tool:
+  
+```bash
 curl -X 'POST' 'http://0.0.0.0:8000/v1/chat/completions' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{
     "model": "openai/gpt-oss-20b",
     "messages": [{"role":"user", "content":"Which number is larger, 9.11 or 9.8?"}],
     "max_tokens": 64
 }'| jq '{content: .choices[0].message.content, reasoning: .choices[0].message.reasoning_content}'
+```
+  
+- print nicely
 
-# print nicely
-
+```bash
 curl -sS   -X POST 'http://0.0.0.0:8000/v1/chat/completions'   -H 'accept: application/json'   -H 'Content-Type: application/json'   -d '{
     "model": "openai/gpt-oss-20b",
     "messages": [{"role":"user","content":"create a go script to calcule factorial of a number. The script send a promptto user, asking the number, if the numberisnegative or not a number, we send a message: DONT FOOL ME."}],
@@ -83,17 +90,15 @@ func main() {
 go run factorial.go
 ```
 
-It prompts you for an integer.
-- If you enter a negative number or something that isn’t an integer, you’ll see `DONT FOOL ME`.
-- For a valid non‑negative integer it prints the factorial (using `math/big` to avoid overflow).
+It prompts you for an integer.  
+- If you enter a negative number or something that isn’t an integer, you’ll see `DONT FOOL ME`.  
+- For a valid non‑negative integer it prints the factorial (using `math/big` to avoid overflow).  
+  
 
-
-
-
-
-# Track details on the NIM container:
-
-󰣛 soundwave :   …/󰈙 /NCP-AAI/NIM   master 🗑️ 📝 🛤️    17:20  ❯ curl -sS http://0.0.0.0:8000/v1/models | jq
+### Track details on the NIM container:
+  
+```  
+❯ curl -sS http://0.0.0.0:8000/v1/models | jq
 {
   "object": "list",
   "data": [
@@ -124,25 +129,33 @@ It prompts you for an integer.
     }
   ]
 }
+```
 
-# check container level status:
+### check container level status:
+```bash
 curl -sS -i http://0.0.0.0:8000/v1/health/ready
 HTTP/1.1 200 OK
 content-length: 71
 content-type: application/json
+```
 
-# Prompt and Answer token , pending requests:
+  
+### Prompt and Answer token , pending requests:
+```
 󰣛 soundwave :   …/󰈙 /NCP-AAI/NIM   master 🗑️ 📝 🛤️    17:27  ❯ curl -s http://0.0.0.0:8000/v1/metrics   | grep -E '^vllm:(prompt_tokens_total|generation_tokens_total)\{'   | head
 vllm:prompt_tokens_total{engine="0",model_name="openai/gpt-oss-20b"} 1939.0
 vllm:generation_tokens_total{engine="0",model_name="openai/gpt-oss-20b"} 1460.0
+```
 
+```
 󰣛 soundwave :   …/󰈙 /NCP-AAI/NIM   master 🗑️ 📝 🛤️    17:27  ❯ curl -s http://0.0.0.0:8000/v1/metrics \
   | awk -F' ' '/^vllm:num_requests_waiting\{/{print $2}' \
   | head -n1
 0.0
+```
 
-# All prometeus metrics:
-curl -sS http://0.0.0.0:8000/v1/metrics
+### All prometheus metrics:
+- curl -sS http://0.0.0.0:8000/v1/metrics
 
 
 
