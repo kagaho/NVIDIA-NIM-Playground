@@ -99,6 +99,7 @@ references: https://build.nvidia.com/openai/gpt-oss-20b/deploy
 Note: This NIM is not Triton Server with Tensor-RT:
 
 podman logs --since 10m nim-gpt-oss-20b | grep -E "Backend type|Triton|TensorRT"
+```
 INFO 2026-01-30 13:11:28.375 vllm_api.py:144] Backend type: vllm
 The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
 (EngineCore_DP0 pid=253) INFO 2026-01-30 13:11:39.808 cuda.py:398] Using Triton backend on V1 engine.
@@ -113,9 +114,11 @@ Capturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|██████
 Capturing CUDA graphs (decode, FULL): 100%|██████████| 19/19 [00:03<00:00,  5.73it/s]
 [2026-01-30 13:12:23] INFO on.py:62: Application startup complete.
 [2026-01-30 13:12:23] INFO server.py:214: Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-
-
-When NIM does involve Triton Inference Server
-
-Some NIMs / profiles are built on TensorRT-LLM and can be deployed behind Triton Inference Server, but that’s a different image/profile path than what you’re running here (your logs explicitly say vLLM).
+```
+  
+  
+Notes:  
+- When NIM does involve Triton Inference Server
+  
+- Some NIMs / profiles are built on TensorRT-LLM and can be deployed behind Triton Inference Server, but that’s a different image/profile path than what you’re running here (your logs explicitly say vLLM).
 
